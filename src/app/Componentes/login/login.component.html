@@ -1,0 +1,54 @@
+  <div class="contenedor " >
+    <mat-card class="container ld ld-blur-in" >
+      <div class="imgcontainer">
+      </div>
+      <div mat-card-avatar class="example-header-image"></div>
+      <form class="example-form">
+        <mat-form-field style="width: 100%;" class="full-width-input">
+          <mat-label  style="color: #c2185b;" >Email</mat-label>
+          <input style="color: black;" matInput type="email" [(ngModel)]="email" name="email">
+        </mat-form-field>
+       
+        <mat-form-field style="width: 100%;"  class="full-width-input">
+          <mat-label  style="color: #c2185b;">Contraseña</mat-label>
+          <input style="color: black;" matInput type="password" [(ngModel)]="clave" name="psw">
+        </mat-form-field>
+
+        <div class="row">
+
+          <div class="col-2 fab-button">
+              <button mat-mini-fab class="botonUsuarios" title="Administrador" style="background-image: url(../../../assets/yo.png);" (click)="cargarAdmin()"></button>
+          </div>
+
+          <div class="col-2 fab-button">
+              <button mat-mini-fab class="botonUsuarios" title="Profesional" style="background-image: url(../../../assets/ro.jpg);" (click)="cargarProfesional(1)"></button>
+          </div>
+
+          <div class="col-2 fab-button">
+              <button mat-mini-fab class="botonUsuarios" title="Profesional" style="background-image: url(../../../assets/profesional2.png);" (click)="cargarProfesional(2)"></button>
+          </div>
+
+          <div class="col-2 fab-button">
+              <button mat-mini-fab class="botonUsuarios" title="Paciente" style="background-image: url(../../../assets/paciente11.png);" (click)="cargarPaciente(1)"></button>
+          </div>
+
+          <div class="col-2 fab-button">
+              <button mat-mini-fab class="botonUsuarios" title="Paciente" style="background-image: url(../../../assets/paciente21.png);" (click)="cargarPaciente(2)"></button>
+          </div>
+
+          <div class="col-2 fab-button">
+              <button mat-mini-fab class="botonUsuarios" title="Paciente" style="background-image: url(../../../assets/noe1.jpg);" (click)="cargarPaciente(3)"></button>
+          </div>
+
+      </div>
+        <button  style="margin-top: 2rem;" class="btn btn-block"   mat-raised-button color="primary"  (click)="Ingresar()">Ingresar</button>
+      </form>
+    
+    
+      <br>
+      <br>
+      <h5>¿No tenés usuario? <a href="/registro">Registrate</a></h5>
+    </mat-card>
+  
+  </div>
+  

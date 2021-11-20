@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+
+<body class="bg-light">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-8 order-md-1">
+                <h4 class="mb-3">Alta de Productos</h4>
+                <form class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="descripcion">Descripción:</label>
+                            <br>
+                            <input type="text" class="form-control" id="descripcion" [(ngModel)]="descripcion" name="descripcion"
+                                placeholder="" value="" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="precio">Precio:</label>
+                            <br>
+                            <input type="text" class="form-control" id="precio" [(ngModel)]="precio" name="precio"
+                                placeholder="" value="" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="stock">Stock:</label>
+                        <br>
+                        <input type="text" id="stock" name="stock" value="" min="1878-01-01" max=""
+                            [(ngModel)]="stock" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="paisOrigen">Pais de Origen</label>
+                        <br>
+                            <app-tabla-paises (seSeleccionoPais)="cambiarPais($event)" ></app-tabla-paises>
+            
+                    
+                        <input type="text" class="form-control" id="paisOrigen" [(ngModel)]="paisOrigen"
+                            name="paisOrigen" placeholder="" value="" required>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="comestible">Es Comestible</label>
+                        <br>
+                        <input type="checkbox" readonly=true class="form-control" id="comestible" [(ngModel)]="comestible"
+                            name="comestible" required>
+                    </div>
+
+                    <button class="btn btn-primary btn-lg btn-block" type="submit" (click)=guardarProducto() onerror="showError()">Cargar Producto</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

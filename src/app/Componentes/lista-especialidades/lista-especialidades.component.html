@@ -1,0 +1,21 @@
+<div @enterState>
+  <div class="divTitulo" style="text-align: center;margin-bottom: 50px;">
+    <h2>Seleccione una Especialidad:</h2>
+  </div>
+  <div  class="contenedor">
+    <div *ngFor="let especialidad of listado; let i = index" style="text-align: center;">
+      <label class="lblFoto">{{especialidad.nombre}}</label>
+      <div  background="profesional.img1" (click)="tomarEspecialidad(especialidad)" class="containerInicioRegistro"> 
+        <div class="imgcontainer" id="{{i}}">
+          <img *ngIf="especialidad.nombre=='Oftalmologia'" class="botonUsuarios" style="overflow: hidden;" src="../../../assets/ojoo.png" >
+          <img *ngIf="especialidad.nombre=='Otorrino'" class="botonUsuarios" style="overflow: hidden;" src="../../../assets/portapapeles.png" >
+          <img *ngIf="especialidad.nombre=='Ginecologia'" class="botonUsuarios" style="overflow: hidden;" src="../../../assets/utero.png" >
+          <img *ngIf="especialidad.nombre=='Traumatologia'" class="botonUsuarios" style="overflow: hidden;" src="../../../assets/hueso.png" >
+          <img *ngIf="especialidad.nombre=='Cardiologia'" class="botonUsuarios" style="overflow: hidden;" src="../../../assets/ritmo-cardiaco.png" >
+          <img *ngIf="especialidad.nombre=='Pediatria'" class="botonUsuarios" style="overflow: hidden;" src="../../../assets/portapapeles.png" >
+          <img *ngIf="especialidad.nombre!='Pediatria' && especialidad.nombre!='Cardiologia' && especialidad.nombre!='Oftalmologia' && especialidad.nombre!='Pediatria' && especialidad.nombre!='Traumatologia' && especialidad.nombre!='Ginecologia' && especialidad.nombre!='Otorrino'" class="botonUsuarios" style="overflow: hidden;" src="../../../assets/portapapeles.png" >
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>

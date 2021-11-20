@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="horarios">
+    <p>Al Seleccionar Días y horarios especificos, reducira la visivilidad de los turnos a Aceptar ajustandose a estas restricciones.De no ingresar ninguno, se concidera que esta disponible en los dias y horarios de atencion de la clínica.</p>
+    <div class="select">
+      <mat-form-field style="width: 40%;" class="full-width-input">
+        <mat-label style="color: #c2185b;">Seleccione un Día</mat-label>
+        <mat-select  name="tipo" [(ngModel)]="dia"> 
+          <mat-option (click)="sabado()" *ngFor="let item of dias" value="{{item}}">{{item}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field   style="width: 40%;" class="full-width-input">
+        <mat-label style="color: #c2185b;">Seleccione una hora</mat-label>
+        <mat-select [disabled]="dia == undefined"  name="tipo" [(ngModel)]="hora"> 
+          <mat-option *ngFor="let item of horarios" value="{{item}}">{{item}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <button style="margin-top: 2rem;" class="btn btn-success btn-block" (click)="atencion()">Agregar</button>
+  </div>
+  <table mat-table [dataSource]="profesional.atencion"  class="mat-elevation-z8">
+    <ng-container matColumnDef="Nombre">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let element"> {{profesional.nombre}} {{profesional.apellido}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Día">
+      <th mat-header-cell *matHeaderCellDef> Día </th>
+      <td mat-cell *matCellDef="let element"> {{element.dia}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Hora">
+      <th mat-header-cell *matHeaderCellDef> Hora </th>
+      <td mat-cell *matCellDef="let element"> {{element.hora}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Acción">
+      <th mat-header-cell *matHeaderCellDef> Acción </th>
+      <td mat-cell *matCellDef="let element "> <button (click)="eliminar(element)" class="btn btn-danger"><span class="material-icons">
+        delete
+        </span></button> </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+          
+

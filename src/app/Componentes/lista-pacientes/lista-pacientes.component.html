@@ -1,0 +1,15 @@
+<div @enterState>
+  <div class="divTitulo" style="text-align: center;margin-bottom: 50px;">
+    <h2 appPasarCursor>Seleccione un Paciente:</h2>
+  </div>
+  <div  class="contenedor">
+    <div *ngFor="let paciente of listado; let i = index" style="text-align: center;">
+      <label class="lblFoto">{{paciente.nombre}} {{paciente.apellido}}</label>
+      <div  background="paciente.img1" (click)="seleccionarPaciente(paciente)" class="containerInicioRegistro"> 
+        <div class="imgcontainer">
+          <img class="botonUsuarios" style="overflow: hidden;" [src]="paciente.img1">
+        </div>
+      </div>
+    </div>
+  </div>  
+</div> 

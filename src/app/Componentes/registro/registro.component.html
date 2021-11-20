@@ -1,0 +1,138 @@
+<div class="divTitulo" *ngIf="!seleccionado">
+  <h2>Seleccione el tipo de usuario que desea registrar:</h2>
+</div>
+<div *ngIf="!seleccionado" class="contenedor">
+  
+  <mat-card class="containerInicioRegistro" title="Paciente" (click)="tipoIngreso='paciente'; seleccionado=true">
+    <div  class="imgcontainer">
+      <img src="../../../assets/medico.png" alt="Avatar" class="avatar" style="max-height: 90%;"  >
+    </div>
+  </mat-card>
+  <mat-card class="containerInicioRegistro" title="Profesional" (click)="tipoIngreso='profesional'; seleccionado=true;">
+    <div  class="imgcontainer">
+      <img src="../../../assets/doctor.png" alt="Avatar" class="avatar" style="max-height: 90%;" >
+    </div>
+  </mat-card>
+<!--</div>
+<div *ngIf="!seleccionado" class="contenedor" style="margin-top:0px">-->
+  <mat-card *ngIf="tipoUsuario=='admin'" class="containerInicioRegistro" title="Administrador" (click)="tipoIngreso='admin'; seleccionado=true">
+    <div  class="imgcontainer">
+      <img src="../../../assets/ojo.png" alt="Avatar" class="avatar" style="max-height: 90%;"  >
+    </div>
+  </mat-card>
+</div>
+
+<div *ngIf="seleccionado && tipoIngreso!=''" class="contenedor" >
+    <mat-card class="container" >
+      <div *ngIf="tipoIngreso=='admin'" >
+        <img src="../../../assets/ojo.png" alt="Avatar" class="avatar" style="max-width: 50px;"><span style="margin-left: 20px;"> Registro de Administrador</span>
+      </div>
+      <div *ngIf="tipoIngreso=='paciente'" >
+        <img src="../../../assets/medico.png" alt="Avatar" class="avatar" style="max-width: 50px;"><span style="margin-left: 20px;"> Registro de Paciente</span>
+      </div>
+      <div *ngIf="tipoIngreso=='profesional'">
+        <img src="../../../assets/doctor.png" alt="Avatar" class="avatar" style="max-width: 50px;" ><span style="margin-left: 20px;"> Registro de Profesional</span>
+      </div>
+      <div mat-card-avatar style="margin-top: 30px;" class="example-header-image"></div>
+      <form class="example-form">
+        <!--<mat-form-field style="width: 25%;" class="full-width-input">
+              <mat-label style="color: #c2185b;">Seleccione una opción</mat-label>
+          <mat-select [(ngModel)]="usuario.tipo" name="tipo"> 
+
+            <mat-option value="profesional"> Profesional</mat-option>
+            <mat-option value="paciente"> Paciente </mat-option>
+            
+          </mat-select>
+       </mat-form-field>-->
+       <br>
+        <mat-form-field style="width: 40%; margin-right: 10%;" >
+            <mat-label  style="color: #c2185b;" >Nombre</mat-label>
+            <input  style="color: black;" matInput type="text" [(ngModel)]="usuario.nombre" name="nombre">
+          </mat-form-field>
+          <mat-form-field style="width: 40%;" >
+            <mat-label  style="color: #c2185b; margin-right: 0rem;" >Apellido</mat-label>
+            <input  style="color: black;" matInput type="text" [(ngModel)]="usuario.apellido" name="apellido">
+          </mat-form-field>
+          <mat-form-field style="width: 40%; margin-right: 10%;">
+            <mat-label  style="color: #c2185b;" >Edad</mat-label>
+            <input  style="color: black;" matInput type="number" [(ngModel)]="usuario.edad" name="edad">
+          </mat-form-field>
+          <mat-form-field style="width: 40%; margin-right: 10%;">
+            <mat-label  style="color: #c2185b;" >Dni</mat-label>
+            <input  style="color: black;" matInput type="number" [(ngModel)]="usuario.dni" name="dni">
+          </mat-form-field>
+          <mat-form-field style="width: 40%;margin-right: 10%;" *ngIf="tipoIngreso == 'paciente'" >
+            <mat-label  style="color: #c2185b; margin-right: 0rem;" >Obra Social</mat-label>
+            <input  style="color: black;" matInput type="text" [(ngModel)]="usuario.obraSocial" name="obraSocial">
+          </mat-form-field>
+        <mat-form-field style="width: 40%; margin-right: 10%;">
+          <mat-label  style="color: #c2185b;" >Email</mat-label>
+          <input  style="color: black;" matInput type="email" [(ngModel)]="usuario.email" name="email">
+        </mat-form-field>
+       
+        <mat-form-field style="width: 40%; margin-right: 10%;"  >
+          <mat-label  style="color: #c2185b;">Contraseña</mat-label>
+          <input style="color: black;" matInput type="password" [(ngModel)]="usuario.pass" name="psw">
+        </mat-form-field>
+        <mat-form-field style="width: 40%;" >
+            <mat-label  style="color: #c2185b;">Repetir Contraseña</mat-label>
+            <input style="color: black;" matInput type="password" [(ngModel)]="clave" name="psw">
+        </mat-form-field>
+        <span *ngIf="tipoIngreso == 'profesional'" class="example-list-section">
+          <ul style="padding: 0rem;"> 
+            <mat-label  style="color: #c2185b;">Especialidades</mat-label>
+            <div style="overflow: auto; height: 6rem; margin-top: 1rem;">
+              <div *ngFor="let item of especialidades" class="especialidad" >
+                <mat-checkbox labelPosition="after" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.completed"
+                              [color]="item.color"
+                              (ngModelChange)="updateAllComplete()">
+                  {{item.name}}
+                </mat-checkbox>
+              </div>
+              <mat-checkbox labelPosition="after" [ngModelOptions]="{standalone: true}" [(ngModel)]="mostrarInputNuevo"
+                              [color]="primary"
+                              (ngModelChange)="mostrarInputNuevo==true">
+                  Nueva especialidad
+                </mat-checkbox>
+                <br>
+                <mat-form-field style="width: 40%;margin-right: 10%;" *ngIf="mostrarInputNuevo == true" >
+                <input  style="color: black;" matInput type="text" [(ngModel)]="nuevaEspecialidad" name="nuevaEspecialidad">
+              </mat-form-field>
+            </div>
+          </ul>
+        </span>
+        <div class="row">
+          
+        <div class="divFoto"  >
+            <mat-label  style="color: #c2185b;">Foto 1</mat-label>
+            
+            <label class="custom-file">
+              <input class="foto"  style="color: black; " type="file" (change)="onFileSelected($event)" name="psw">
+              <mat-icon>cloud_upload</mat-icon><span class="span">Subir</span>
+            <mat-icon *ngIf="img1" style="background-color: green; border-radius: 100%;">check_circle</mat-icon>
+            </label>
+           
+        </div>
+        <div  class="divFoto" *ngIf="tipoIngreso == 'paciente'">
+          <mat-label  style="color: #c2185b;">Foto 2</mat-label>
+          <label class="custom-file">
+            <input class="foto"  style="color: black; " type="file" (change)="onFileSelected2($event)" name="psw">
+            <mat-icon>cloud_upload</mat-icon><span class="span">Subir</span>
+            <mat-icon *ngIf="img2" style="background-color: green; border-radius: 100%;">check_circle</mat-icon>
+          </label>
+         
+       </div>
+       <div  class="recaptcha">
+        <re-captcha  (resolved)="resolved($event)" siteKey="6Lfc9twZAAAAAAjwYSzByar-hPR8o8rzi9mXE_FI"></re-captcha>
+      </div>
+    </div>
+       
+        
+        <br>
+        <button [disabled]="!recaptcha" style="margin-top: 2rem;" class="btn btn-block"   mat-raised-button color="primary"  (click)="Entrar()">Registrarse</button>
+      
+      </form>
+    
+    </mat-card>
+  
+  </div>

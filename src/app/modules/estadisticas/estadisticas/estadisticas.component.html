@@ -1,0 +1,46 @@
+<div class="divTitulo">
+    <h2>Informes y Estadísticas</h2>
+</div>
+<div class="row mt-4 mb-4">
+    <div class="col-1"></div>
+    <div class="col-2">
+        <button class="btn btn-primary botonCustom" [class.btn-secondary]="solapaAMostrar !== 'ingresos'"
+        [class.btn-primary]="solapaAMostrar == 'ingresos'"  (click)="solapaAMostrar='ingresos'">Ingresos al sistema</button>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-primary botonCustom" [class.btn-secondary]="solapaAMostrar !== 'turnosPorDias'"
+        [class.btn-primary]="solapaAMostrar == 'turnosPorDias'"  (click)="solapaAMostrar='turnosPorDias'">Turnos por dias</button>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-primary botonCustom" [class.btn-secondary]="solapaAMostrar !== 'turnosPorEspecialidad'"
+        [class.btn-primary]="solapaAMostrar == 'turnosPorEspecialidad'" (click)="solapaAMostrar='turnosPorEspecialidad'">Turnos por Especialidad</button>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-primary botonCustom" [class.btn-secondary]="solapaAMostrar !== 'turnosFinalizados'"
+        [class.btn-primary]="solapaAMostrar == 'turnosFinalizados'" (click)="solapaAMostrar='turnosFinalizados'">Turnos Finalizados por Profesionales</button>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-primary botonCustom" [class.btn-secondary]="solapaAMostrar !== 'turnosSolicitados'"
+        [class.btn-primary]="solapaAMostrar == 'turnosSolicitados'" (click)="solapaAMostrar='turnosSolicitados'">Turnos Solicitados por Profesionales</button>  
+    </div>
+    <div class="col-1"></div>
+</div>
+
+<div class="contenedor">
+    <mat-card *ngIf="solapaAMostrar=='ingresos'" class="container ld ld-blur-in" >
+        <app-ingresos></app-ingresos>
+    </mat-card>
+    <mat-card *ngIf="solapaAMostrar=='turnosPorDias'" class="container ld ld-blur-in" >
+        <app-turnos-por-dia></app-turnos-por-dia>
+    </mat-card>
+    <mat-card *ngIf="solapaAMostrar=='turnosPorEspecialidad'" class="container ld ld-blur-in" >
+        <app-turnos-por-especialidad></app-turnos-por-especialidad>
+    </mat-card>
+    <mat-card *ngIf="solapaAMostrar=='turnosFinalizados'" class="container ld ld-blur-in" >
+        <app-turnos-medico-finalizados></app-turnos-medico-finalizados>
+    </mat-card>
+    <mat-card *ngIf="solapaAMostrar=='turnosSolicitados'" class="container ld ld-blur-in">
+        <app-turnos-medico-solicitados></app-turnos-medico-solicitados>
+    </mat-card>
+
+</div>

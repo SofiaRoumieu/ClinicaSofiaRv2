@@ -1,0 +1,19 @@
+<div @enterState>
+  <div class="divTitulo" style="text-align: center;margin-bottom: 50px;">
+    <h2>Seleccione un dia:</h2>
+  </div>
+  <div  class="contenedor">
+    <div *ngFor="let fecha of listado | sortTurnos  let i = index" style="text-align: center;">
+      <div (click)="seleccionarFecha(fecha)" class="containerInicioRegistro"> 
+        <div class="imgcontainer">
+          <label>{{fecha.nombre}}</label>
+          <br>
+          <label>{{fecha.fecha}}</label>
+        </div>
+        <div class="imgcontainer">
+          <img class="botonUsuarios" src="../../../assets/calendario(2).png">
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>  

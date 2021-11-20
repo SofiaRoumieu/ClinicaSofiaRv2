@@ -1,0 +1,58 @@
+<div class="buscador">
+  <input  class="form-control mr-sm-2 block" [(ngModel)]="escribir"  placeholder="Filtrar turnos" type="text" name="" id="">
+</div>
+<br>
+<mat-form-field style="margin-left: 2rem;" *ngIf="fitroSeleccionado == 'Adicionales'  && fitroSeleccionado != undefined " >
+  <input matInput placeholder="descripcion" value="adicional" type="text" [(ngModel)]="adicional" >
+</mat-form-field>
+<mat-form-field style="margin-left: 2rem;" *ngIf="fitroSeleccionado == 'Adicionales'  && fitroSeleccionado != undefined " >
+  <input matInput placeholder="filtro" value="filtro" type="text" [(ngModel)]="escribir" >
+</mat-form-field>
+
+
+<mat-form-field  *ngIf="fitroSeleccionado == 'Dia'" style="width: 40%; margin-left: 2rem;" class="full-width-input">
+  <mat-label style="color: #c2185b;">Seleccione un Día</mat-label>
+  <mat-select  name="tipo" [(ngModel)]="escribir">
+    <mat-option *ngFor="let item of dias" value="{{item}}">{{item}}</mat-option>
+  </mat-select>
+</mat-form-field>
+    <div class="div1">
+      <table class="table table-hover table-bordered animated fadeIn faster ld ld-slide-ttb-in">
+        <thead  class="bg-primary" style="color: white;text-align: center;"><th colspan="10">Turnos</th></thead>
+        <thead>
+          <tr class="bg-primary" style="color: white;">
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Especialidad</th>
+            <th>Fecha de Turno</th>
+            <th>Hora</th>
+            <th>Profesional</th>
+            <th>Estado</th>
+            <th >Acciones</th>
+          </tr>
+        </thead>
+        <tbody style="background-color: white;">
+          <tr *ngFor="let turno of listado |busqueda:escribir" >
+            <td>{{turno.paciente.nombre}} </td>
+            <td>{{turno.paciente.apellido}} </td>
+            <td>{{turno.especialidad}} </td>
+            <td>{{turno.fecha |fecha}} </td>
+            <td>{{turno.hora}} </td>
+            <td>{{turno.profesional.apellido}} </td>
+            <td appEstadoTurno>{{turno.estado | estadoTurno}}  </td> 
+            <td>
+              <button  (click)="tomarTurno(turno)" class="btn btn-primary" style="margin-right: 1rem; width: 90px;font-size: 13px;">Ver detalle</button>
+              <button *ngIf="usuario.rol == 'paciente' && (turno.estado ==0 || turno.estado == 1)" (click)="cancelar(turno)" class="btn btn-danger" style="margin-right: 1rem;width: 90px;font-size: 13px;">Cancelar</button>
+              <button *ngIf="(usuario.rol == 'admin' || usuario.rol == 'profesional') && turno.estado != 1 && turno.estado != -2 && turno.estado !=5 && turno.estado !=2 && turno.estado != -1 && turno.estado!=4" (click)="cancelar(turno)" class="btn btn-danger" style="margin-right: 1rem;width: 90px;font-size: 13px;">Cancelar</button>
+              <button *ngIf="usuario.rol == 'profesional' && turno.estado == 0" (click)="aceptar(turno)" class="btn btn-success" style="margin-right: 1rem;width: 90px;font-size: 13px;">Aceptar</button>
+              <button *ngIf="usuario.rol == 'profesional'  && turno.estado == 0" class="btn btn-danger" style="margin-right: 1rem;width: 90px;font-size: 13px;"(click)="rechazar(turno)" >Rechazar</button>
+              <button *ngIf="(usuario.rol == 'profesional' || usuario.rol == 'paciente') && turno.comentario != undefined && turno.comentario != ''" class="btn btn-warning" style="margin-right: 1rem;width: 90px; font-size: 13px;color: white;" (click)="verReseniaModal(turno)" >Ver reseña</button>
+            </td>
+          </tr> 
+        </tbody>
+      </table>
+    </div>
+<app-ver-turno [cancelar]="cancelarPro" [verResenia]="verResenia" [rechazar]="rechazarPro" [user]="usuario" [turno]="turnoSeleccionado"[mostrar]="mostrarModal" (eventoMostrarModal)="mostrarEncuesta($event)" (eventoJustifacion)="justificacion($event)"></app-ver-turno>
+<app-ver-turno-detalle [turno]="turnoSeleccionado" [user]="usuario" [mostrar]="mostrarModalDetalle"(eventoMostrarModal)="cerrarModalDetalle($event)"(eventoMostrarEncuesta)="mostrarEncuesta($event)"></app-ver-turno-detalle>
+
+    

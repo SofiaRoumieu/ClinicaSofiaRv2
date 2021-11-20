@@ -1,0 +1,15 @@
+<div @enterState>
+  <div class="divTitulo" style="text-align: center; margin-bottom: 50px;">
+    <h2>Seleccione un Profesional:</h2>
+  </div>
+  <div  class="contenedor">
+    <div *ngFor="let profesional of listado; let i = index" style="text-align: center;">
+      <label class="lblFoto">{{profesional.nombre}} {{profesional.apellido}}</label>
+      <div  background="profesional.img1" (click)="seleccionarProfesional(profesional)" class="containerInicioRegistro"> 
+        <div class="imgcontainer">
+          <img class="botonUsuarios" style="overflow: hidden;" [src]="profesional.img1">
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>

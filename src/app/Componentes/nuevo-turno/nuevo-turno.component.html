@@ -1,0 +1,9 @@
+<div class="row mat-card" style="height: 100px; text-align:center; align-items: center; margin: 10px; border-radius: 10px;margin-bottom: 40px;"> 
+  <h1>Registro de nuevo turno</h1>
+</div>
+<app-lista-pacientes *ngIf="mostrarPacientes" [listado]="pacientes" (eventoPaciente)="tomarPaciente($event)"></app-lista-pacientes>
+<app-lista-profesionales *ngIf="mostrarProfesionales" [listado]="profesionales" (enventoProfesional)="tomarProfesional($event)"></app-lista-profesionales>
+<app-lista-especialidades *ngIf="mostrarEspecialidades" [listado]="especialidades"  (enventoEspecialidad)="tomarEspecialidad($event)"></app-lista-especialidades>
+<app-lista-fecha-hora *ngIf="mostrarFechas"  [listado]="turnosDisponibles" (enventoFecha)="tomarFecha($event)" ></app-lista-fecha-hora><!--[profesional]="turno.profesional.apellido"-->
+<app-lista-horas *ngIf="mostrarHoras" [listado]="horas" (enventoHorario)="tomarHora($event)"></app-lista-horas>
+

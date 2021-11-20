@@ -1,0 +1,17 @@
+<nav class="site-header sticky-top py-1">
+    <div class="container d-flex flex-column flex-md-row justify-content-between">
+      <a *ngIf='!estado_activo || estado_activo==null' title="Ir a Login" class="py-2"  routerLink="login" aria-label="Product">
+        <img src="../../../assets/icono.png"  style="background-color: white; border-radius: 100%;" alt="Avatar" class="avatar" width="40" height="40" >
+      </a>
+      <a *ngIf='estado_activo' class="py-2" title="Ir a Inicio" routerLink="home"  aria-label="Product">
+        <img src="../../../assets/icono.png" style="background-color: white; border-radius: 100%;"  alt="Avatar" class="avatar" width="40" height="40" >
+      </a>
+      <a appAgrandarGrafico *ngIf='estado_activo' class="py-2 d-none d-md-inline-block" style="color: aliceblue;" (click)='cerrarSesion()' routerActive="activebutton">Salir</a>
+      <!--<a *ngIf='estado_activo'class="py-2 d-none d-md-inline-block" routerLink="home" routerActive="activebutton">Incio</a>
+      <a *ngIf='estado_activo'class="py-2 d-none d-md-inline-block" routerLink="altaProducto" routerActive="activebutton">Alta de Usuario</a>
+      <a *ngIf='estado_activo'class="py-2 d-none d-md-inline-block" routerLink="home" routerActive="activebutton">Administrar Usuarios</a>
+      <a *ngIf='estado_activo'class="py-2 d-none d-md-inline-block" (click)='cerrarSesion()' routerActive="activebutton">Cerrar Sesión</a>
+      <a *ngIf='!estado_activo || estado_activo==null' class="py-2 d-none d-md-inline-block" routerLink="login" routerActive="activebutton">Login</a>
+      <a *ngIf='!estado_activo || estado_activo==null' class="py-2 d-none d-md-inline-block" routerLink="registro" routerActive="activebutton" >Registro</a>-->
+    </div>
+  </nav>

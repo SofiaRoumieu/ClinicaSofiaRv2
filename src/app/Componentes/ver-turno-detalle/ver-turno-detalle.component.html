@@ -1,0 +1,157 @@
+<div *ngIf="mostrar"  id="id01" class="modal ">
+    <form class="modal-content animate ld ld-zoom-in" >
+      <span style="margin-bottom: 2rem;" (click)="cerrar()" class="close" title="Close Modal">×</span>
+      <div  style="margin-top: 3rem; margin-bottom: 2rem;" class="container">
+        <br>
+        <br>
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Profesional
+      </mat-panel-title>
+      <mat-panel-description>
+       Profesional Detalles
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <label for=""> <strong>Nombre y Apellido:</strong> </label>
+    {{turno.profesional.nombre}}
+    {{turno.profesional.apellido}}
+    <br>
+    <label for=""> <strong>Dni:</strong> </label>
+    {{turno.profesional.dni}}
+    <br>
+    <label for=""> <strong>Email:</strong> </label>
+    {{turno.profesional.email}}
+    <br>
+    <label> <strong>Atención:</strong> </label>
+     <div style="height:3rem; overflow: auto;" >
+      <p *ngFor="let item of turno.profesional.atencion let index">{{item.dia}}  {{item.hora}}Hs</p>  
+     </div>
+    <br>
+    <label> <strong>Especialidades:</strong> </label>
+     <div style="height:3rem; overflow: auto;" >
+      <p *ngFor="let item of turno.profesional.especialidades let index">{{item}}</p>  
+     </div>
+
+  </mat-expansion-panel>
+    </mat-accordion>
+  <br>
+  <br>
+
+    <mat-accordion style="margin-bottom: 2rem;">
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Paciente
+      </mat-panel-title>
+      <mat-panel-description>
+       Paciente Detalles
+      </mat-panel-description>
+    </mat-expansion-panel-header> 
+
+    <label for=""> <strong>Nombre y Apellido:</strong> </label>
+    {{turno.paciente.nombre}}
+    {{turno.paciente.apellido}}
+    <br>
+    <label for=""> <strong>Dni:</strong> </label>
+    {{turno.paciente.dni}}
+    <br>
+    <label for=""> <strong>Email:</strong> </label>
+    {{turno.paciente.email}}
+  </mat-expansion-panel>
+    </mat-accordion> 
+     
+    <div style="margin-top: 2rem;">
+            <div class="row" style="text-align: center; width: 100%; justify-content: center; font-family:'Times New Roman', Times, serif;">
+            
+                <h1 style="color: #c2185b;">Detalle Turno</h1>
+            
+            </div>
+          
+            <div class="fecha">
+                <div style="margin-right: 2rem;">
+                    <label for=""> <strong>Fecha:</strong> </label>
+                    {{turno.fecha}}
+                    <br>
+                    <label for=""> <strong>Hora:</strong> </label>
+                    {{turno.hora}} Hs
+                    <br>
+                    <label for=""> <strong>Estado:</strong> </label>
+                    {{turno.estado|estadoTurno}}
+
+                </div>
+                 
+                 <div style="margin-right: 2rem;">
+
+                     <div *ngIf="turno.edad">
+                         <label for=""> <strong>Edad:</strong> </label>
+                         {{turno.edad}} Años
+                 
+                     </div>
+                     <div *ngIf="turno.temperatura">
+                        <label for=""> <strong>Temperatura:</strong> </label>
+                        {{turno.temperatura}} °C
+                
+                    </div>
+                    <div *ngIf="turno.presion">
+                        <label for=""> <strong>Presión:</strong> </label>
+                        {{turno.presion}}
+                
+                    </div> 
+
+                 </div>
+                 
+                 <div *ngIf="turno.datosAdicionales">
+                     <div *ngFor="let item of turno.datosAdicionales">
+                        <label for=""> <strong>{{item.propiedad}}: </strong> </label>
+                        {{item.valor}}
+                     </div>
+                 </div>
+
+            </div>
+            
+            <div class="row" style="margin-top: 2rem;">
+                 
+               
+                <div *ngIf="turno.opinionProfesional" class="mensaje">
+                    <label for=""><strong>Profesional</strong></label>
+                    <p>{{turno.opinionProfesional}}</p>
+                    <p>Calificacion: <strong style="color:orange;">{{turno.calificacionProfesional|calificacion}}</strong></p>
+                 
+                </div>
+                
+                <div *ngIf="turno.comentario != '' &&turno.comentario != undefined " class="mensaje">
+                  <label for=""><strong>Profesional</strong></label>
+                  <p>{{turno.comentario}}</p>
+                
+              </div>
+                
+                <div *ngIf="turno.opinionPaciente" id="respuesta" class="mensaje">
+                  
+                    <label for=""><strong>Paciente</strong></label>
+                    <p>{{turno.opinionPaciente}}</p>
+                    <p>Calificacion: <strong style="color:orange;">{{turno.calificacionPaciente|calificacion}}</strong></p>
+                    <br>
+                </div>
+
+            </div>
+
+
+
+    </div>
+
+
+
+        <div *ngIf="turno.estado == 3 && user.rol == 'paciente' " class="clearfix row" style="justify-content: center;">
+          <button  (click)="encusesta()"  class="btn-success btn-lg boton " onclick="this.blur();">Responder</button>
+        </div>
+        <div *ngIf="turno.estado == 1 && user.rol == 'profesional' " class="clearfix row" style="justify-content: center;">
+          <button  (click)="encusesta()"  class="btn-success btn-lg boton " onclick="this.blur();">Atender</button>
+        </div>
+      </div>
+    </form>
+  </div>
+

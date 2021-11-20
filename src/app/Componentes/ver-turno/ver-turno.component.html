@@ -1,0 +1,104 @@
+<div *ngIf="mostrar"  id="id01" class="modal ">
+    <form class="modal-content animate ld ld-zoom-in" >
+      <span (click)="cerrar()" class="close" title="Close Modal">×</span>
+      <div *ngIf="!cancelar && !rechazar && !verResenia" style="margin-top: 3rem;" class="container">
+        
+        <mat-form-field *ngIf="user.rol == 'paciente'" style="width: 100%; " class="full-width-input">
+          <mat-label style="color: #c2185b;">Califique el servicio de 1 a 5</mat-label>
+          <mat-select  (change)="cargarDatos()" [(ngModel)]="turno.calificacionPaciente" [ngModelOptions]="{standalone: true}" > 
+              
+            <mat-option *ngFor="let item of calificaciones"  [value]="item"><strong style="color: orange;">{{item|calificacion}}</strong></mat-option>
+            
+            
+          </mat-select>
+          
+       </mat-form-field>  
+       <mat-form-field  *ngIf="user.rol == 'profesional'" style="width: 100%; " class="full-width-input">
+        <mat-label style="color: #c2185b;"> Calificar al paciente de 1 a 5</mat-label>
+        <mat-select   [(ngModel)]="turno.calificacionProfesional" [ngModelOptions]="{standalone: true}" > 
+            
+          <mat-option *ngFor="let item of calificaciones"  [value]="item"><strong style="color: orange;">{{item|calificacion}}</strong></mat-option>
+          
+          
+        </mat-select>
+        
+     </mat-form-field> 
+
+    <mat-form-field style="width: 100%; " *ngIf="user.rol == 'profesional'">
+      <mat-label style="color: #c2185b;">Edad: </mat-label>
+       <input [(ngModel)]="edad" matInput placeholder="edad" type="number" value="value" [ngModelOptions]="{standalone: true}">
+     </mat-form-field>
+
+     <mat-form-field style="width: 100%; " *ngIf="user.rol == 'profesional'">
+      <mat-label style="color: #c2185b;">Temperatura: </mat-label>
+       <input [(ngModel)]="temperatura" matInput placeholder="Temperatura" type="number" value="hola" [ngModelOptions]="{standalone: true}">
+     </mat-form-field>
+
+     <mat-form-field style="width: 100%; " *ngIf="user.rol == 'profesional'">
+      <mat-label style="color: #c2185b;">Presión arterial: </mat-label>
+       <input [(ngModel)]="presion" matInput placeholder="Presión" type="number" value="chau" [ngModelOptions]="{standalone: true}">
+     </mat-form-field>  
+
+     <mat-form-field style="width: 100%; " *ngIf="user.rol == 'profesional'">
+      <mat-label style="color: #c2185b;">Altura: </mat-label>
+       <input [(ngModel)]="altura" matInput placeholder="Presión" type="number" value="chau" [ngModelOptions]="{standalone: true}">
+     </mat-form-field> 
+
+     <mat-form-field style="width: 100%; " *ngIf="user.rol == 'profesional'">
+      <mat-label style="color: #c2185b;">Peso: </mat-label>
+       <input [(ngModel)]="peso" matInput placeholder="Presión" type="number" value="chau" [ngModelOptions]="{standalone: true}">
+     </mat-form-field> 
+
+     <div style="margin-left: 0.8rem;" id="extras" *ngFor="let nuevoItem of listaDinamicos" class="row">
+      <mat-form-field style="width: 40%; " *ngIf="user.rol == 'profesional'">
+        <mat-label style="color: #c2185b;">Dato Agregado</mat-label>
+         <input [(ngModel)]="nuevoItem.propiedad" matInput  type="text" value="chau" [ngModelOptions]="{standalone: true}">
+       </mat-form-field> 
+       <mat-form-field style="width: 40%; margin-left: 5%; " *ngIf="user.rol == 'profesional'">
+        <mat-label style="color: #c2185b;">Valor dato</mat-label>
+         <input [(ngModel)]="nuevoItem.valor" matInput  type="text" value="chau" [ngModelOptions]="{standalone: true}">
+       </mat-form-field> 
+    </div>
+ 
+
+       <mat-form-field  style="width: 100%;" appearance="fill">
+        <mat-label>Dejanos tu comentario</mat-label>
+        <textarea *ngIf="user.rol == 'paciente'"  [(ngModel)]="turno.opinionPaciente" matInput [ngModelOptions]="{standalone: true}"></textarea>
+        <textarea *ngIf="user.rol == 'profesional'"  [(ngModel)]="turno.opinionProfesional" matInput [ngModelOptions]="{standalone: true}"></textarea>
+        
+      </mat-form-field>
+
+
+   
+      <button *ngIf="user.rol == 'profesional'" class="btn btn-success"  (click)="onAgregarDatos()" style="margin-left: 20px;">+ Datos</button>
+        <div class="clearfix row" style="justify-content: center;">
+          <button  (click)="Enviar()"  type="submit" class="btn-success btn-lg boton " onclick="this.blur();">Enviar Respuesta</button>
+        </div>
+      </div>
+      <div *ngIf="cancelar || rechazar" style="margin-top: 3rem;" class="container">
+        <mat-form-field  style="width: 100%;" appearance="fill">
+        <mat-label>Justificación</mat-label>
+        <textarea   [(ngModel)]="turno.comentario" matInput [ngModelOptions]="{standalone: true}"></textarea><!--*ngIf="user.rol == 'profesional'"-->
+      </mat-form-field>
+        <div *ngIf="!verResenia" class="clearfix row" style="justify-content: center;">
+          <button  (click)="Enviar()"  type="submit" class="btn-success btn-lg boton " onclick="this.blur();">Enviar Respuesta</button>
+        </div>
+        
+      </div>
+
+      <div *ngIf="verResenia" style="margin-top: 3rem;" class="container">
+        <mat-form-field  style="width: 100%;" appearance="fill">
+        <mat-label>Comentario:</mat-label>
+        <textarea   [(ngModel)]="turno.comentario" matInput [ngModelOptions]="{standalone: true}" disabled></textarea><!--*ngIf="user.rol == 'profesional'"-->
+      </mat-form-field>
+      <div *ngIf="verResenia" class="clearfix row" style="justify-content: center;">
+        <button  (click)="cerrar()"  class="btn-success btn-lg boton ">Cerrar</button>
+      </div>
+        
+      </div>
+
+      
+
+    </form>
+  </div>
+

@@ -1,0 +1,28 @@
+<div id="divBase" class="row" style="align-items: center;">
+    <div class="col-md-5 mt-4 mb-4 ml-4">
+        <label style="color:rgb(16, 16, 82) ; margin-bottom:10px" > <strong> Cantidad de turnos segun especialidad</strong></label>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row" *ngFor="let label of labels">
+                    <label><strong>{{label}}</strong> </label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row" *ngFor="let serie of series">
+                    <label>{{serie}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mt-4 mb-4">
+        <x-chartist 
+        class="col-md-6"
+        [data]="data"
+        [type]="type"
+        [options]="options">
+        </x-chartist>
+    </div>
+</div>
+<div class="mt-4 mb-4">
+    <button class="btn btn-primary" (click)="exportAsPDF('divBase')">Exportar PDF</button>
+</div>

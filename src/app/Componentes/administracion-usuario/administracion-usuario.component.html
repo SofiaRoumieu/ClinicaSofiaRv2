@@ -1,0 +1,136 @@
+<div *ngIf="tipoUsuario=='admin'" class="row mt-4 mb-4">
+    <div class="col-2"></div>
+    <div class="col-2">
+        <button class="btn btn-primary" [class.btn-secondary]="solapaAMostrar !== 'admin'"
+        [class.btn-primary]="solapaAMostrar == 'admin'"  (click)="solapaAMostrar='admin'">Ver Administradores</button>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-primary" [class.btn-secondary]="solapaAMostrar !== 'profesionales'"
+        [class.btn-primary]="solapaAMostrar == 'profesionales'" (click)="solapaAMostrar='profesionales'">Ver Profesionales</button>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-primary" [class.btn-secondary]="solapaAMostrar !== 'pacientes'"
+        [class.btn-primary]="solapaAMostrar == 'pacientes'" (click)="solapaAMostrar='pacientes'">Ver Pacientes</button>
+    </div>
+    <div class="col-2">
+        <button *ngIf="tipoUsuario=='admin'" class="btn btn-success mt-4 mb-4" (click)="descargarUsuarios()">Exportar Usuarios XLS</button>
+    </div>
+
+    <div class="col-2 fab-button">
+              <button mat-mini-fab class="botonUsuarios" title="Registrar Usuario" style="border-radius: 100%; background-image: url(../../../assets/nuevoUsuario.png);" (click)="NuevoUsuario()"></button>
+    </div>
+</div>
+<div class="contenedor">
+    <mat-card class="container ld ld-blur-in" >
+        <div *ngIf="solapaAMostrar=='pacientes'">
+            <table class="table table-hover table-bordered animated fadeIn faster ld ld-slide-ttb-in">
+                <thead>
+                    <tr class="bg-primary" style="color: white;text-align: center;"><th colspan="10">Pacientes</th></tr>
+                    <tr class="bg-primary" style="color: white;">
+                        <th scope="col">Foto de Perfil</th>
+                        <th scope="col">Foto de Perfil</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">DNI</th>
+                        <th scope="col">Edad</th>
+                        <th scope="col">E-Mail</th>
+                        <th scope="col">Obra Social</th>
+                        <th scope="col">Historia Clínica</th>
+                        <th *ngIf="tipoUsuario=='admin'" scope="col">Turnos agendados</th>
+                        <th *ngIf="tipoUsuario=='profesional'" scope="col">Atenciones realizadas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr appPasarCursor *ngFor="let paciente of pacientes">
+                        <td><img class="fotoTabla" [src]="paciente.img1"></td>
+                        <td><img class="fotoTabla" [src]="paciente.img2"></td>
+                        <td>{{paciente.nombre}}</td>
+                        <td>{{paciente.apellido}}</td>
+                        <td>{{paciente.dni}}</td>
+                        <td>{{paciente.edad}}</td>
+                        <td>{{paciente.email}}</td>
+                        <td>{{paciente.obraSocial}}</td>
+                        <td><button class="btn btn-primary" style="width: 50px;font-size: 13px;"  (click)="VerAtenciones(paciente)">Ver</button></td>
+                        <td *ngIf="tipoUsuario=='admin'"><div class="col-2 fab-button">
+                            <img class="botonUsuarios mat-mini-fab"  [src]="paciente.img1" title="Descargar xls" (click)="VerTurnosAgendados(paciente)">
+                           </div>
+                        </td>
+                        <td *ngIf="tipoUsuario=='profesional'"><div class="col-2 fab-button">
+                            <img class="botonUsuarios mat-mini-fab"  [src]="paciente.img1" title="Ver" (click)="verTurnos(paciente)">
+                           </div>
+                        </td>
+                        <!--<td *ngIf="tipoUsuario=='admin'"><button  (click)="VerTurnosAgendados(paciente)">Descargar xls</button></td>
+                        <td *ngIf="tipoUsuario=='profesional'"><button (click)="verTurnos(paciente)" >Ver</button></td>  (click)="VerAtenciones(paciente)"-->
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+        <div *ngIf="solapaAMostrar=='profesionales'">
+            <table class="table table-hover table-bordered animated fadeIn faster ld ld-slide-ttb-in">
+                <thead>
+                    <tr class="bg-primary" style="color: white;text-align: center;"><th colspan="9">Profesionales</th></tr>
+                    <tr class="bg-primary" style="color: white;">
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">DNI</th>
+                        <th scope="col">Edad</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Especialidades</th>
+                        <th scope="col">Foto de perfil</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Habilitar/ Deshabilitar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr appPasarCursor *ngFor="let profesional of profesionales">
+                        <td>{{profesional.nombre}}</td>
+                        <td>{{profesional.apellido}}</td>
+                        <td>{{profesional.dni}}</td>
+                        <td>{{profesional.edad}}</td>
+                        <td>{{profesional.email}}</td>
+                        <td>{{profesional.especialidades}}</td>
+                        <td><img class="fotoTabla" [src]="profesional.img1"></td>
+                        <td *ngIf="profesional.estado!=1" class="text-center" style="color: green;">Habilitado</td>
+                        <td *ngIf="profesional.estado==1"class="text-center" style="color: red;">Deshabilitado</td>
+                        <td *ngIf="profesional.estado!=1"><button class="btn btn-danger" style="font-size: 12px; width: 100px;" (click)="DeshabilitarProfesional(profesional)">Deshabilitar</button></td>
+                        <td *ngIf="profesional.estado==1"><button class="btn btn-success" style="font-size: 12px; width: 100px" (click)="HabilitarProfesional(profesional)">Habilitar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+        <div *ngIf="solapaAMostrar=='admin'">
+            <table class="table table-hover table-bordered animated fadeIn faster ld ld-slide-ttb-in">
+                <thead>
+                    <tr class="bg-primary" style="color: white;text-align: center;"><th colspan="8">Administradores</th></tr>
+                    <tr class="bg-primary" style="color: white;">
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">DNI</th>
+                        <th scope="col">Edad</th>
+                        <th scope="col">E-Mail</th>
+                        <th scope="col">Foto de perfil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr appPasarCursor *ngFor="let administrador of administradores">
+                        <td>{{administrador.nombre}}</td>
+                        <td>{{administrador.apellido}}</td>
+                        <td>{{administrador.dni}}</td>
+                        <td>{{administrador.edad}}</td>
+                        <td>{{administrador.email}}</td>
+                        <td><img class="fotoTabla" [src]="administrador.img1"></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        
+    </mat-card>
+    
+</div>
+
+<!--<app-ver-turno-detalle [turno]="undefined" [user]="usuario" [mostrar]="mostrarModalTurnosMisPacientes"(eventoMostrarModal)="cerrarModalDetalle($event)"></app-ver-turno-detalle>-->
+<app-turnos-mis-pacientes [user]="usuario" [paciente]="usuarioSeleccionado" [listado]="listadoTurnosMiPaciente" [mostrar]="mostrarModalTurnosMisPacientes" (eventoMostrarModal)="cerrarModalDetalle($event)"></app-turnos-mis-pacientes>
+
